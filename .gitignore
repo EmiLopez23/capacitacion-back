@@ -1,0 +1,20 @@
+/node_modules
+.env
+.env.local
+# Dependencias de Node.js
+/node_modules
+
+# Archivos de configuración locales
+.env
+
+# Archivos generados por sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Carpetas y archivos específicos de IDE
+.vscode/
+.idea/
+
+# Carpetas y archivos de respaldo
+*.swp
+*~
