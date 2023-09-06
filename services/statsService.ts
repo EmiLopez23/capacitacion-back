@@ -9,6 +9,6 @@ export async function getStats(req:Request,res:Response){
     tomorrow.setDate(today.getDate()+1)
 
 
-    const [usersThatSentEmails] = await getEmailStats(today, tomorrow)
-    res.status(200).json({usersThatSentEmails})
+    const usersThatSentEmails = await getEmailStats(today, tomorrow)
+    res.status(200).json(usersThatSentEmails)
 }
