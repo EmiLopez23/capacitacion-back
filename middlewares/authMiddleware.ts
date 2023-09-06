@@ -4,7 +4,7 @@ import { Roles } from "../utils/roles";
 export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
     
     if(req.body.user.role !== Roles.ADMIN){
-        res.status(403).json({message:"Unauthorized"})
+        return res.status(403).json({message:"Unauthorized"})
     }
     
     next()
