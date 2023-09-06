@@ -45,12 +45,24 @@ export async function getEmailStats(startDate:Date, endDate:Date){
                 }
             },
         },
-        select:{
-            username:true,
-            email:true
+        include:{
+            _count:{
+                select:{
+                    sent:{
+                        where:{
+                            createdAt:{
+                                gte:startDate,
+                                lt:endDate
+                            }
+                        }
+                    }
+                }
+            }
         }
     })
-    return users
+
+
+    return users.map(({username, email, _count})=>({username,email,qty:_count.sent}))
 }
 
 export async function addEmailToDatabase(senderId:number, content:string, receiverId:number){
@@ -66,7 +78,7 @@ export async function addEmailToDatabase(senderId:number, content:string, receiv
 }
 
 export async function getEmailsQtyFromUser(userId:number, startDate:Date, endDate:Date) {
-    await prisma.email.count({
+    return await prisma.email.count({
         where:{
             senderId:userId,
             createdAt:{
