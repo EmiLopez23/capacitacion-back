@@ -17,7 +17,7 @@ export class MailGunService implements EmailService{
         try{
             await this.mailgunClient.messages.create(process.env.MAILGUN_DOMAIN as string, {from, to, subject, text: content});
         }catch(error){
-            throw new Error("MailGunService failed")
+            throw error
         }
     }
 }

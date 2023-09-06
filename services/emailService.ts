@@ -30,7 +30,7 @@ export async function sendEmail(req:Request,res:Response){
         
         res.status(200).json({message:"Email sent"})
     }
-    catch(error:Error|any){
-        res.status(500).json({message:error.message})
+    catch(error){
+        res.status(500).json({message:"Error sending email"})
     }
 }
