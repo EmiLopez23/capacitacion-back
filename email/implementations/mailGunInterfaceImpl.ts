@@ -14,6 +14,10 @@ export class MailGunService implements EmailService{
 
 
     async sendEmail(from: string, to: string, subject: string, content: string): Promise<any> {
-        await this.mailgunClient.messages.create(process.env.MAILGUN_DOMAIN as string, {from, to, subject, text: content});
+        try{
+            await this.mailgunClient.messages.create(process.env.MAILGUN_DOMAIN as string, {from, to, subject, text: content});
+        }catch(error){
+            throw new Error("MailGunService failed")
+        }
     }
 }

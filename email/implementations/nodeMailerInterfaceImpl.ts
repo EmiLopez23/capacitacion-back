@@ -18,6 +18,10 @@ export class NodeMailerService implements EmailService{
     }
 
     async sendEmail(from: string, to: string, subject: string, content: string): Promise<any> {
-        return await this.transporter.sendMail({from, to,subject,text:content})
+        try{
+            await this.transporter.sendMail({from, to,subject,text:content})
+        }catch(error){
+            throw new Error("NodeMailerService failed")
+        }
     }
 }

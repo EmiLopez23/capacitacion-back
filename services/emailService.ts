@@ -15,9 +15,9 @@ export async function sendEmail(req:Request,res:Response){
         
         const emailClient = new EmailClient(new NodeMailerService(),new MailGunService())
 
-        await addEmailToDatabase(id, content, receiver.id)
-
         await emailClient.sendEmail( email, to, subject, content)
+
+        await addEmailToDatabase(id, content, receiver.id)
         
         res.status(200).json({message:"Email sent"})
     }
