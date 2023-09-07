@@ -18,3 +18,14 @@ export function validateLoginData(user: any): asserts user is { email: string, p
         throw new Error("Invalid data type");
     }
 }
+
+
+export function validateSendEmailData(email: any): asserts email is { to: string, subject: string, content: string } {
+    if(!email.to || !email.subject || !email.content) {
+        throw new Error("Missing fields");
+    }
+    
+    if (typeof email.to !== "string" || typeof email.subject !== "string" || typeof email.content !== "string") {
+        throw new Error("Invalid data type");
+    }
+}

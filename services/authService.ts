@@ -7,7 +7,7 @@ export async function login(req: Request, res: Response) {
     const { email, password } = req.body
 
     try {
-        validateLoginData(req.body)
+        validateLoginData({email,password})
 
         const user = await getUserByEmail(email)
 

@@ -4,6 +4,7 @@ import { EmailClient } from "../email/emailClient";
 import { MailGunService } from "../email/implementations/mailGunInterfaceImpl";
 import { NodeMailerService } from "../email/implementations/nodeMailerInterfaceImpl";
 import { getTodayRange } from "../utils/dates";
+import { validateSendEmailData } from "../utils/typeCheckers";
 
 const MAIL_LIMIT = 4
 
@@ -11,6 +12,8 @@ const MAIL_LIMIT = 4
 export async function sendEmail(req:Request,res:Response){
     try{
         const {user:{email, id}, to, subject, content} = req.body
+
+        validateSendEmailData({to,subject,content})
         
         const {startDate,endDate} = getTodayRange()
 
@@ -31,6 +34,6 @@ export async function sendEmail(req:Request,res:Response){
         res.status(200).json({message:"Email sent"})
     }
     catch(error){
-        res.status(500).json({message:"Error sending email"})
+        res.status(500).json({message: error instanceof Error ? error.message : "Error sending email"})
     }
 }

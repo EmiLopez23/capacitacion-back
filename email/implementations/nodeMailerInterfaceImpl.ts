@@ -21,7 +21,7 @@ export class NodeMailerService implements EmailService{
         try{
             await this.transporter.sendMail({from, to,subject,text:content})
         }catch(error){
-            throw error
+            throw new Error("Error sending email")
         }
     }
 }
