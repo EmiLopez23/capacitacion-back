@@ -13,7 +13,7 @@ export class EmailClient{
         try {
             await this.primaryEmailService.sendEmail(from,to,subject,`from main mail service : ${content}`)
         } catch (error) {
-            const backupMessage = await this.backupEmailService.sendEmail(from,to,subject,`from backup mail service : ${content}`)
+            await this.backupEmailService.sendEmail(from,to,subject,`from backup mail service : ${content}`)
         }
     }
 }
