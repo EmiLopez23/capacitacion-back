@@ -1,24 +1,9 @@
 import { getTodayRange } from "../utils/dates";
 import { getEmailsQtyFromUser, getUserByEmail } from "../utils/prismaQueries";
-import { Roles } from "../utils/roles";
 import { validateLoginDataTypes, validateRegisterDataTypes, validateSendEmailDataTypes } from "../utils/typeCheckers";
+import { Email, User, VerifiedUser } from "../types";
 
-type User = {
-    username?: string;
-    email: string;
-    id?: number;
-    role?: Roles
-    password?: string;
-}
-
-type Email = {
-    to: string;
-    from?: string;
-    subject: string;
-    content: string;
-}
-
-export async function validateLoginData(user: User) {
+export async function validateLoginData(user: User): Promise<User> {
     try {
         validateLoginDataTypes(user)
 
@@ -38,7 +23,7 @@ export async function validateLoginData(user: User) {
     }
 }
 
-export async function validateRegisterData(user: User) {
+export async function validateRegisterData(user: User): Promise<void> {
     try {
         validateRegisterDataTypes(user)
 
@@ -47,12 +32,13 @@ export async function validateRegisterData(user: User) {
         if (oldUser) {
             throw new Error("User already exists")
         }
+
     } catch (error) {
         throw error
     }
 }
 
-export async function validateEmailData(sender: User, emailObject: Email, mail_limit: number) {
+export async function validateEmailData(sender: User, emailObject: Email, mail_limit: number): Promise<VerifiedUser> {
     try {
         validateSendEmailDataTypes(emailObject)
 

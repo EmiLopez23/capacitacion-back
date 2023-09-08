@@ -17,7 +17,7 @@ export class NodeMailerService implements EmailService{
         })
     }
 
-    async sendEmail(from: string, to: string, subject: string, content: string): Promise<any> {
+    async sendEmail(from: string, to: string, subject: string, content: string): Promise<void> {
         try{
             await this.transporter.sendMail({from, to,subject,text:content})
         }catch(error){

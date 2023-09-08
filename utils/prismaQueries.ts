@@ -1,7 +1,9 @@
+import { User } from "@prisma/client";
 import prisma from "../prisma/prisma";
 import { Roles } from "./roles";
+import { UsersWithEmails } from "../types";
 
-export async function createUser(username:string,password:string,email:string) {
+export async function createUser(username:string,password:string,email:string): Promise<User> {
     const newUser = await prisma.user.create({
         data: {
             username: username,
@@ -14,7 +16,7 @@ export async function createUser(username:string,password:string,email:string) {
 }
 
 
-export async function getUserById(id:number) {
+export async function getUserById(id:number): Promise<User|null> {
     const user = await prisma.user.findUnique({
         where: {
             id: id
@@ -23,7 +25,7 @@ export async function getUserById(id:number) {
     return user
 }
 
-export async function getUserByEmail(email:string) {
+export async function getUserByEmail(email:string):Promise<User|null> {
     const user = await prisma.user.findUnique({
         where: {
             email: email
@@ -33,7 +35,7 @@ export async function getUserByEmail(email:string) {
 }
 
 
-export async function getEmailStats(startDate:Date, endDate:Date){
+export async function getEmailStats(startDate:Date, endDate:Date):Promise<UsersWithEmails[]|[]>{
     const users = await prisma.user.findMany({
         where:{
             sent: {
@@ -65,7 +67,7 @@ export async function getEmailStats(startDate:Date, endDate:Date){
     return users.map(({username, email, _count})=>({username,email,qty:_count.sent}))
 }
 
-export async function addEmailToDatabase(senderId:number, content:string, receiverId:number){
+export async function addEmailToDatabase(senderId:number, content:string, receiverId:number):Promise<void>{
     
 
     await prisma.email.create({
@@ -77,7 +79,7 @@ export async function addEmailToDatabase(senderId:number, content:string, receiv
         })
 }
 
-export async function getEmailsQtyFromUser(userId:number, startDate:Date, endDate:Date) {
+export async function getEmailsQtyFromUser(userId:number, startDate:Date, endDate:Date):Promise<number> {
     return await prisma.email.count({
         where:{
             senderId:userId,

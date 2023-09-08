@@ -9,7 +9,7 @@ export class EmailClient{
         this.backupEmailService = backupEmailService; 
     }
 
-    async sendEmail(from:string, to:string, subject:string, content:string): Promise<any>{
+    async sendEmail(from:string, to:string, subject:string, content:string): Promise<void>{
         try {
             await this.primaryEmailService.sendEmail(from,to,subject,`from main mail service : ${content}`)
         } catch (error) {
