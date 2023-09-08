@@ -1,4 +1,4 @@
-export function validateRegisterData(user: any): asserts user is { username: string, password: string, email: string } {
+export function validateRegisterDataTypes(user: any): asserts user is { username: string, password: string, email: string } {
     if(!user.username || !user.password || !user.email) {
         throw new Error("Missing fields");
     }
@@ -9,7 +9,7 @@ export function validateRegisterData(user: any): asserts user is { username: str
 }
 
 
-export function validateLoginData(user: any): asserts user is { email: string, password: string } {
+export function validateLoginDataTypes(user: any): asserts user is { email: string, password: string } {
     if(!user.email || !user.password) {
         throw new Error("Missing fields");
     }
@@ -20,7 +20,7 @@ export function validateLoginData(user: any): asserts user is { email: string, p
 }
 
 
-export function validateSendEmailData(email: any): asserts email is { to: string, subject: string, content: string } {
+export function validateSendEmailDataTypes(email: any): asserts email is { to: string, subject: string, content: string } {
     if(!email.to || !email.subject || !email.content) {
         throw new Error("Missing fields");
     }
